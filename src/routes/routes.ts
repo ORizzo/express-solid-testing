@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 const router = Router();
 
-router.get("/book", async (req: Request, res: Response) => {
+router.get("/book", async (_, res: Response) => {
   const books = await prisma.book.findMany();
   res.json(books);
 });
@@ -79,7 +79,7 @@ router.delete("/book", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/author", async (req: Request, res: Response) => {
+router.get("/author", async (_, res: Response) => {
   const authors = await prisma.author.findMany();
   res.json(authors);
 });
