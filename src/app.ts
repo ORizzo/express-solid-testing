@@ -9,8 +9,9 @@ app.use(express.json());
 
 app.use(routes);
 
-app.listen(process.env.PORT, () =>
-  `Server running on port ${process.env.PORT}`
+app.listen(
+  process.env.PORT,
+  () => `Server running on port ${process.env.PORT}`
 );
 
-export default app
+export default app;

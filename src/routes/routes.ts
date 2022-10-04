@@ -1,12 +1,12 @@
 import { Router, Request, Response } from "express";
+import {GetBookController} from '../controllers/getBookController'
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 const router = Router();
 
 router.get("/book", async (_, res: Response) => {
-  const books = await prisma.book.findMany();
-  res.json(books);
+  GetBookController.handle(res)
 });
 router.post("/book", async (req: Request, res: Response) => {
   const { author, bookName } = req.body;
