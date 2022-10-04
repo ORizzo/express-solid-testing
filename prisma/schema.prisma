@@ -20,7 +20,7 @@ model Author {
 model Book {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  title     String   @unique
+  name     String   @unique
   author_Id Int
   author    Author?  @relation(fields: [author_Id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
