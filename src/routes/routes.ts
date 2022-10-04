@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import { GetBookController } from "../controllers/getBookController";
+import { PostBookController } from "../controllers/postBookController";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -9,33 +10,7 @@ router.get("/book", async (req: Request, res: Response) => {
   GetBookController.handle(req, res);
 });
 router.post("/book", async (req: Request, res: Response) => {
-  const { author, bookName } = req.body;
-  const bookAlreadyExists = await prisma.book.findFirst({
-    where: {
-      name: bookName,
-    },
-  });
-  if (!bookAlreadyExists) {
-    const createdBook = await prisma.book.create({
-      data: {
-        name: bookName,
-        author: {
-          connectOrCreate: {
-            create: {
-              name: author,
-            },
-            where: {
-              name: author,
-            },
-          },
-        },
-      },
-    });
-    res.json(createdBook);
-  } else {
-    res.status(409);
-    res.json("The book already exists.");
-  }
+  PostBookController.handle(req, res);
 });
 router.put("/book", async (req: Request, res: Response) => {
   const { bookName, newBookName } = req.body;
