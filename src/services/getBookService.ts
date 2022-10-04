@@ -1,21 +1,20 @@
 import { Book } from "../entities/Book";
 import { BookRepository } from "../repository/bookRepository";
-import { errorResponse } from "../types/Error";
+import { APIError } from "../utils/APIError";
 
 class GetBookService {
-  async execute(): Promise<Book[] | errorResponse> {
-    const books = await BookRepository.getAll();
-    
-    if (books instanceof Error) {
-      const errorMessage = books.message;
-      console.error(
-        `The book which you want to find do not exists in the database, error message: ${errorMessage}`
-      );
-      return {
-        status: 409,
-        message: errorMessage,
-      };
+  async execute(bookToSearch?: string): Promise<Book[] | Book | APIError> {
+    if (bookToSearch) {
+      const book = await BookRepository.get(bookToSearch);
+      if (!book) {
+        throw new APIError(
+          `The book which you want to find do not exists in the database.`,
+          409
+        );
+      }
+      return book;
     }
+    const books = await BookRepository.getAll();
     return books;
   }
 }

@@ -1,24 +1,24 @@
 import { Router, Request, Response } from "express";
-import {GetBookController} from '../controllers/getBookController'
+import { GetBookController } from "../controllers/getBookController";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 const router = Router();
 
-router.get("/book", async (_, res: Response) => {
-  GetBookController.handle(res)
+router.get("/book", async (req: Request, res: Response) => {
+  GetBookController.handle(req, res);
 });
 router.post("/book", async (req: Request, res: Response) => {
   const { author, bookName } = req.body;
   const bookAlreadyExists = await prisma.book.findFirst({
     where: {
-      title: bookName,
+      name: bookName,
     },
   });
   if (!bookAlreadyExists) {
     const createdBook = await prisma.book.create({
       data: {
-        title: bookName,
+        name: bookName,
         author: {
           connectOrCreate: {
             create: {
@@ -41,7 +41,7 @@ router.put("/book", async (req: Request, res: Response) => {
   const { bookName, newBookName } = req.body;
   const bookAlreadyExists = await prisma.book.findFirst({
     where: {
-      title: bookName,
+      name: bookName,
     },
   });
   if (!bookAlreadyExists) {
@@ -50,10 +50,10 @@ router.put("/book", async (req: Request, res: Response) => {
   } else {
     const updatedBook = await prisma.book.update({
       where: {
-        title: bookName,
+        name: bookName,
       },
       data: {
-        title: newBookName,
+        name: newBookName,
       },
     });
     res.json(updatedBook);
@@ -63,13 +63,13 @@ router.delete("/book", async (req: Request, res: Response) => {
   const { bookName } = req.body;
   const bookAlreadyExists = await prisma.book.findFirst({
     where: {
-      title: bookName,
+      name: bookName,
     },
   });
   if (bookAlreadyExists) {
     const deletedBook = await prisma.book.delete({
       where: {
-        title: bookName,
+        name: bookName,
       },
     });
     res.json(deletedBook);

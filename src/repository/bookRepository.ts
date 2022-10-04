@@ -6,15 +6,12 @@ class BookRepository {
     const books = await prisma.book.findMany();
     return books;
   }
-  static async get(bookName: string): Promise<Book | Error> {
+  static async get(bookName: string): Promise<Book | null> {
     const book = await prisma.book.findUnique({
       where: {
-        title: bookName,
+        name: bookName,
       },
     });
-    if (!book) {
-      throw new Error("");
-    }
     return book;
   }
 }
