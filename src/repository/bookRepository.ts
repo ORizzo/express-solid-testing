@@ -10,6 +10,10 @@ type BookToDelete = {
   author: string;
   bookName: string;
 };
+type BookToUpdate = {
+  bookName: string;
+  newBookName: string;
+};
 class BookRepository {
   static async getAll(): Promise<Book[]> {
     const books = await prisma.book.findMany();
@@ -42,8 +46,8 @@ class BookRepository {
     });
     return createdBook;
   }
-  static async delete(BookToDelete: BookToDelete) {
-    const { bookName } = BookToDelete;
+  static async delete(bookToDelete: BookToDelete) {
+    const { bookName } = bookToDelete;
     const deletedBook = await prisma.book.delete({
       where: {
         name: bookName,
@@ -51,6 +55,18 @@ class BookRepository {
     });
     return deletedBook;
   }
+  static async update(bookToUpdate: BookToUpdate) {
+    const { bookName, newBookName } = bookToUpdate;
+    const updatedBook = await prisma.book.update({
+      where: {
+        name: bookName,
+      },
+      data: {
+        name: newBookName,
+      },
+    });
+    return updatedBook;
+  }
 }
 
-export { BookRepository, BookToCreate, BookToDelete };
+export { BookRepository, BookToCreate, BookToDelete, BookToUpdate };
