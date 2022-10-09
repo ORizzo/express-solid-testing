@@ -4,7 +4,7 @@
   "description": "An api with express, using SOLID principles, and also unit and integrations tests.",
   "main": "src/app.ts",
   "scripts": {
-    "test": "vitest",
+    "test": "vitest --no-threads",
     "dev": "ts-node-dev --respawn --ignore-watch node_modules --transpile-only src/app.ts"
   },
   "repository": {
