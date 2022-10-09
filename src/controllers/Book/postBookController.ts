@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
-import { PostBookService } from "../services/postBookService";
-import { APIError } from "../utils/APIError";
+import { PostBookService } from "../../services/Book/postBookService";
+import { APIError } from "../../utils/APIError";
 
 class PostBookController {
   static async handle(req: Request, res: Response) {

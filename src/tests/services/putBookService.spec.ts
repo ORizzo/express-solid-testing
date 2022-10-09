@@ -1,5 +1,5 @@
 import { test, expect, describe, beforeAll, afterAll } from "vitest";
-import { PutBookService } from "../../services/putBookService";
+import { PutBookService } from "../../services/Book/putBookService";
 import { BookRepository } from "../../repository/bookRepository";
 import { APIError } from "../../utils/APIError";
 

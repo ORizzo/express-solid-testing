@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
-import { DeleteBookService } from "../services/deleteBookService";
-import { APIError } from "../utils/APIError";
+import { DeleteBookService } from "../../services/Book/deleteBookService";
+import { APIError } from "../../utils/APIError";
 
 class DeleteBookController {
   static async handle(req: Request, res: Response) {

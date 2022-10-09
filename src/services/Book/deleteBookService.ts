@@ -1,6 +1,6 @@
-import { Book } from "../entities/Book";
-import { BookRepository, BookToDelete } from "../repository/bookRepository";
-import { APIError } from "../utils/APIError";
+import { Book } from "../../entities/Book";
+import { BookRepository, BookToDelete } from "../../repository/bookRepository";
+import { APIError } from "../../utils/APIError";
 
 class DeleteBookService {
   async execute(bookToDelete: BookToDelete): Promise<Book | APIError> {

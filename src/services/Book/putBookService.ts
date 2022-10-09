@@ -1,6 +1,6 @@
-import { Book } from "../entities/Book";
-import { BookRepository, BookToUpdate } from "../repository/bookRepository";
-import { APIError } from "../utils/APIError";
+import { Book } from "../../entities/Book";
+import { BookRepository, BookToUpdate } from "../../repository/bookRepository";
+import { APIError } from "../../utils/APIError";
 
 class PutBookService {
   async execute(bookToUpdate: BookToUpdate): Promise<Book | APIError> {

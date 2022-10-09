@@ -1,6 +1,6 @@
-import { Book } from "../entities/Book";
-import { BookRepository } from "../repository/bookRepository";
-import { APIError } from "../utils/APIError";
+import { Book } from "../../entities/Book";
+import { BookRepository } from "../../repository/bookRepository";
+import { APIError } from "../../utils/APIError";
 
 class GetBookService {
   async execute(bookToSearch?: string): Promise<Book[] | Book | APIError> {

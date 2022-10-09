@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
-import { PutBookService } from "../services/putBookService";
-import { APIError } from "../utils/APIError";
+import { PutBookService } from "../../services/Book/putBookService";
+import { APIError } from "../../utils/APIError";
 
 class PutBookController {
   static async handle(req: Request, res: Response) {

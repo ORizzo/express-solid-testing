@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
-import { GetBookController } from "../controllers/getBookController";
-import { PostBookController } from "../controllers/postBookController";
-import { DeleteBookController } from "../controllers/deleteBookController";
+import { GetBookController } from "../controllers/Book/getBookController";
+import { PostBookController } from "../controllers/Book/postBookController";
+import { DeleteBookController } from "../controllers/Book/deleteBookController";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();

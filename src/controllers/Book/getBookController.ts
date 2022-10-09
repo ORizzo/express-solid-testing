@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
-import { GetBookService } from "../services/getBookService";
-import { APIError } from "../utils/APIError";
+import { GetBookService } from "../../services/Book/getBookService";
+import { APIError } from "../../utils/APIError";
 
 class GetBookController {
   static async handle(req: Request, res: Response) {

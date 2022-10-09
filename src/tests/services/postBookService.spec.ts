@@ -1,5 +1,5 @@
 import { test, expect, describe, beforeAll, afterAll } from "vitest";
-import { PostBookService } from "../../services/postBookService";
+import { PostBookService } from "../../services/Book/postBookService";
 import { BookRepository } from "../../repository/bookRepository";
 import { APIError } from "../../utils/APIError";
 

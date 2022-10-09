@@ -1,5 +1,5 @@
 import { test, expect, describe, beforeAll, afterAll } from "vitest";
-import { GetBookService } from "../../services/getBookService";
+import { GetBookService } from "../../services/Book/getBookService";
 import { BookRepository } from "../../repository/bookRepository";
 const mock = {
   bookName: "Mock Book",
