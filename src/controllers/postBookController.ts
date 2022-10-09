@@ -7,7 +7,7 @@ class PostBookController {
     try {
       const service = new PostBookService();
       const createdBook = await service.execute(req.body);
-      res.json(createdBook);
+      res.status(201).json(createdBook);
     } catch (error) {
       const { statusCode, message } = error as APIError;
       res.status(statusCode).json({ message: message });

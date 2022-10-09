@@ -6,7 +6,6 @@ class GetBookController {
   static async handle(req: Request, res: Response) {
     const service = new GetBookService();
     const bookToSearch = req.body.bookName;
-
     try {
       if (bookToSearch) {
         const book = await service.execute(bookToSearch);
