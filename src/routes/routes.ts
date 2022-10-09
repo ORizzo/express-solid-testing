@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { GetBookController } from "../controllers/getBookController";
 import { PostBookController } from "../controllers/postBookController";
+import { DeleteBookController } from "../controllers/deleteBookController";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -35,23 +36,7 @@ router.put("/book", async (req: Request, res: Response) => {
   }
 });
 router.delete("/book", async (req: Request, res: Response) => {
-  const { bookName } = req.body;
-  const bookAlreadyExists = await prisma.book.findFirst({
-    where: {
-      name: bookName,
-    },
-  });
-  if (bookAlreadyExists) {
-    const deletedBook = await prisma.book.delete({
-      where: {
-        name: bookName,
-      },
-    });
-    res.json(deletedBook);
-  } else {
-    res.status(404);
-    res.json("The book which you want to delete do not exists in the database");
-  }
+  DeleteBookController.handle(req, res);
 });
 
 router.get("/author", async (_, res: Response) => {
