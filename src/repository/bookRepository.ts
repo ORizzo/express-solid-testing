@@ -6,6 +6,10 @@ type BookToCreate = {
   author: string;
   bookName: string;
 };
+type BookToDelete = {
+  author: string;
+  bookName: string;
+};
 class BookRepository {
   static async getAll(): Promise<Book[]> {
     const books = await prisma.book.findMany();
@@ -38,6 +42,15 @@ class BookRepository {
     });
     return createdBook;
   }
+  static async delete(BookToDelete: BookToDelete) {
+    const { bookName } = BookToDelete;
+    const deletedBook = await prisma.book.delete({
+      where: {
+        name: bookName,
+      },
+    });
+    return deletedBook;
+  }
 }
 
-export { BookRepository, BookToCreate };
+export { BookRepository, BookToCreate, BookToDelete };
