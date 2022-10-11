@@ -3,19 +3,21 @@ import { AuthorRepository } from "../../repository/authorRepository";
 import { APIError } from "../../utils/APIError";
 
 class GetAuthorService {
-  async execute(bookToSearch?: string): Promise<Author[] | Author | APIError> {
-    if (bookToSearch) {
-      const book = await AuthorRepository.get(bookToSearch);
-      if (!book) {
+  async execute(
+    authorToSearch?: string
+  ): Promise<Author[] | Author | APIError> {
+    if (authorToSearch) {
+      const author = await AuthorRepository.get(authorToSearch);
+      if (!author) {
         throw new APIError(
           `The author which you want to find do not exists in the database.`,
           409
         );
       }
-      return book;
+      return author;
     }
-    const books = await AuthorRepository.getAll();
-    return books;
+    const authors = await AuthorRepository.getAll();
+    return authors;
   }
 }
 
