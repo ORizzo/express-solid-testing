@@ -1,5 +1,5 @@
 export interface Author {
-  id: Number;
+  id: number;
   createdAt: Date;
-  name: String;
+  name: string;
 }
