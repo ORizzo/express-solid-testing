@@ -2,17 +2,15 @@ import { PrismaClient } from "@prisma/client";
 import { Author } from "../entities/Author";
 const prisma = new PrismaClient();
 
-type BookToCreate = {
-  author: string;
-  bookName: string;
+type AuthorToCreate = {
+  authorName: string;
 };
-type BookToDelete = {
-  author: string;
-  bookName: string;
+type AuthorToDelete = {
+  authorName: string;
 };
-type BookToUpdate = {
-  bookName: string;
-  newBookName: string;
+type AuthorToUpdate = {
+  authorName: string;
+  newAuthorName: string;
 };
 
 class AuthorRepository {
@@ -28,46 +26,38 @@ class AuthorRepository {
     });
     return author;
   }
-  static async create(bookToCreate: BookToCreate): Promise<Author> {
-    const { author, bookName } = bookToCreate;
-    const createdBook = await prisma.book.create({
+  static async create(
+    authorToCreate: AuthorToCreate
+  ): Promise<Author> {
+    const { authorName } = authorToCreate;
+    const createdAuthor = await prisma.author.create({
       data: {
-        name: bookName,
-        author: {
-          connectOrCreate: {
-            create: {
-              name: author,
-            },
-            where: {
-              name: author,
-            },
-          },
-        },
+        name: authorName,
       },
     });
-    return createdBook;
+    return createdAuthor;
   }
-  static async delete(bookToDelete: BookToDelete) {
-    const { bookName } = bookToDelete;
-    const deletedBook = await prisma.book.delete({
+  static async delete(authorToDelete: AuthorToDelete) {
+    const { authorName } = authorToDelete;
+    const deletedAuthor = await prisma.author.delete({
       where: {
-        name: bookName,
+        name: authorName,
       },
     });
-    return deletedBook;
+    return deletedAuthor;
   }
-  static async update(bookToUpdate: BookToUpdate) {
-    const { bookName, newBookName } = bookToUpdate;
-    const updatedBook = await prisma.book.update({
+  static async update(bookToUpdate: AuthorToUpdate) {
+    const { authorName, newAuthorName } = bookToUpdate;
+    const updatedAuthor = await prisma.author.update({
       where: {
-        name: bookName,
+        name: authorName,
       },
       data: {
-        name: newBookName,
+        name: newAuthorName,
       },
     });
-    return updatedBook;
+    return updatedAuthor;
   }
 }
 
-export { AuthorRepository, BookToCreate, BookToDelete, BookToUpdate };
+export { AuthorRepository, AuthorToCreate, AuthorToDelete, AuthorToUpdate };
