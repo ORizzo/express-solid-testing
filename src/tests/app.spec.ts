@@ -43,7 +43,7 @@ describe("Integration test", async () => {
     const updatedBook = response.body;
 
     expect(updatedBook.name).toEqual(mock.newBookName);
-    expect(response.statusCode).toEqual(200);
+    expect(response.statusCode).toEqual(201);
   });
   test("Should delete a book from the database", async () => {
     const response = await agent(app).delete("/book").send({
