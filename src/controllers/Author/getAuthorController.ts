@@ -6,7 +6,7 @@ class GetAuthorController {
   static async handle(req: Request, res: Response) {
     try {
       const service = new GetAuthorService();
-      const authorToSearch = req.body.bookName;
+      const authorToSearch = req.body.authorName;
       if (authorToSearch) {
         const book = await service.execute(authorToSearch);
         return res.json(book);
