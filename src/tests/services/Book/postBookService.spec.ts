@@ -1,7 +1,8 @@
 import { test, expect, describe, beforeAll, afterAll } from "vitest";
-import { PostBookService } from "../../services/Book/postBookService";
-import { BookRepository } from "../../repository/bookRepository";
-import { APIError } from "../../utils/APIError";
+import { PostBookService } from "../../../services/Book/postBookService";
+import { BookRepository } from "../../../repository/bookRepository";
+import { AuthorRepository } from "../../../repository/authorRepository";
+import { APIError } from "../../../utils/APIError";
 
 const mock = {
   author: "Mock Author",
@@ -42,9 +43,8 @@ describe("Post book service unit tests", async () => {
 afterAll(async () => {
   const result = await BookRepository.get(mock.bookName);
   if (result) {
-    await BookRepository.delete({
-      author: mock.author,
-      bookName: mock.bookName,
+    await AuthorRepository.delete({
+      authorName: mock.author,
     });
   }
 });

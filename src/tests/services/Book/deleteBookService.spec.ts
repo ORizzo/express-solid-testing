@@ -1,7 +1,8 @@
 import { test, expect, describe, beforeAll, afterAll } from "vitest";
-import { DeleteBookService } from "../../services/Book/deleteBookService";
-import { BookRepository } from "../../repository/bookRepository";
-import { APIError } from "../../utils/APIError";
+import { DeleteBookService } from "../../../services/Book/deleteBookService";
+import { BookRepository } from "../../../repository/bookRepository";
+import { AuthorRepository } from "../../../repository/authorRepository";
+import { APIError } from "../../../utils/APIError";
 
 const mock = {
   author: "Mock Author",
@@ -18,8 +19,8 @@ beforeAll(async () => {
   }
 });
 
-describe("Delete book service unit tests", async () => {
-  test("If delete book service have an argument should return a new created book", async () => {
+describe("Delete author service unit tests", async () => {
+  test("If delete book service have an argument should return a deleted book", async () => {
     const service = new DeleteBookService();
     const result = await service.execute(mock);
     expect(result).toHaveProperty("id");
@@ -40,11 +41,10 @@ describe("Delete book service unit tests", async () => {
 });
 
 afterAll(async () => {
-  const result = await BookRepository.get(mock.bookName);
+  const result = await AuthorRepository.get(mock.author);
   if (result) {
-    await BookRepository.delete({
-      author: mock.author,
-      bookName: mock.bookName,
+    await AuthorRepository.delete({
+      authorName: mock.author,
     });
   }
 });

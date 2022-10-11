@@ -1,7 +1,10 @@
 import { test, expect, describe, beforeAll, afterAll } from "vitest";
-import { GetBookService } from "../../services/Book/getBookService";
-import { BookRepository } from "../../repository/bookRepository";
+import { GetBookService } from "../../../services/Book/getBookService";
+import { BookRepository } from "../../../repository/bookRepository";
+import { AuthorRepository } from "../../../repository/authorRepository";
+
 const mock = {
+  authorName: "Mock Author",
   bookName: "Mock Book",
 };
 
@@ -9,7 +12,7 @@ beforeAll(async () => {
   const result = await BookRepository.get(mock.bookName);
   if (!result) {
     await BookRepository.create({
-      author: "Henrque Rizzo",
+      author: mock.authorName,
       bookName: mock.bookName,
     });
   }
@@ -34,9 +37,8 @@ describe("Get book service unit tests", async () => {
 afterAll(async () => {
   const result = await BookRepository.get(mock.bookName);
   if (result) {
-    await BookRepository.delete({
-      author: "Henrique Rizzo",
-      bookName: mock.bookName,
+    await AuthorRepository.delete({
+      authorName: mock.authorName,
     });
   }
 });
