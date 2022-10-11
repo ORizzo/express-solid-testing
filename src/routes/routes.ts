@@ -7,10 +7,8 @@ import {
   GetAuthorController,
   PostAuthorController,
   DeleteAuthorController,
+  PutAuthorController,
 } from "../controllers/controllers";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
 const router = Router();
 
 router.get("/book", async (req: Request, res: Response) => {
@@ -33,26 +31,7 @@ router.post("/author", async (req: Request, res: Response) => {
   PostAuthorController.handle(req, res);
 });
 router.put("/author", async (req: Request, res: Response) => {
-  const { author, newAuthor } = req.body;
-  const authorAlreadyExists = await prisma.author.findFirst({
-    where: {
-      name: author,
-    },
-  });
-  if (!authorAlreadyExists) {
-    res.status(404);
-    res.json("The book which you want to update do not exists in the database");
-  } else {
-    const updatedAuthor = await prisma.author.update({
-      where: {
-        name: author,
-      },
-      data: {
-        name: newAuthor,
-      },
-    });
-    res.json(updatedAuthor);
-  }
+  PutAuthorController.handle(req, res);
 });
 router.delete("/author", async (req: Request, res: Response) => {
   DeleteAuthorController.handle(req, res);
