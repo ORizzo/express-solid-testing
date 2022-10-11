@@ -5,6 +5,9 @@ import { APIError } from "../../utils/APIError";
 class DeleteBookService {
   async execute(bookToDelete: BookToDelete): Promise<Book | APIError> {
     const { bookName } = bookToDelete;
+    if (!bookName) {
+      throw new APIError(`Please provide a valide book name to delete.`, 400);
+    }
     const bookExists = await BookRepository.get(bookName);
     if (!bookExists) {
       throw new APIError(
