@@ -26,9 +26,7 @@ class AuthorRepository {
     });
     return author;
   }
-  static async create(
-    authorToCreate: AuthorToCreate
-  ): Promise<Author> {
+  static async create(authorToCreate: AuthorToCreate): Promise<Author> {
     const { authorName } = authorToCreate;
     const createdAuthor = await prisma.author.create({
       data: {
@@ -46,8 +44,8 @@ class AuthorRepository {
     });
     return deletedAuthor;
   }
-  static async update(bookToUpdate: AuthorToUpdate) {
-    const { authorName, newAuthorName } = bookToUpdate;
+  static async update(authorToDelete: AuthorToUpdate) {
+    const { authorName, newAuthorName } = authorToDelete;
     const updatedAuthor = await prisma.author.update({
       where: {
         name: authorName,
