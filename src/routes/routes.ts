@@ -5,6 +5,8 @@ import {
   DeleteBookController,
   PutBookController,
   GetAuthorController,
+  PostAuthorController,
+  DeleteAuthorController,
 } from "../controllers/controllers";
 import { PrismaClient } from "@prisma/client";
 
@@ -28,23 +30,7 @@ router.get("/author", async (req: Request, res: Response) => {
   GetAuthorController.handle(req, res);
 });
 router.post("/author", async (req: Request, res: Response) => {
-  const { author } = req.body;
-  const authorAlreadyExists = await prisma.author.findFirst({
-    where: {
-      name: author,
-    },
-  });
-  if (!authorAlreadyExists) {
-    const createdAuthor = await prisma.author.create({
-      data: {
-        name: author,
-      },
-    });
-    res.json(createdAuthor);
-  } else {
-    res.status(409);
-    res.json("The author already exists.");
-  }
+  PostAuthorController.handle(req, res);
 });
 router.put("/author", async (req: Request, res: Response) => {
   const { author, newAuthor } = req.body;
@@ -69,23 +55,7 @@ router.put("/author", async (req: Request, res: Response) => {
   }
 });
 router.delete("/author", async (req: Request, res: Response) => {
-  const { author } = req.body;
-  const authorAlreadyExists = await prisma.author.findFirst({
-    where: {
-      name: author,
-    },
-  });
-  if (!authorAlreadyExists) {
-    res.status(404);
-    res.json("The book which you want to delete do not exists in the database");
-  } else {
-    const deletedAuthor = await prisma.author.delete({
-      where: {
-        name: author,
-      },
-    });
-    res.json(deletedAuthor);
-  }
+  DeleteAuthorController.handle(req, res);
 });
 
 export { router };
